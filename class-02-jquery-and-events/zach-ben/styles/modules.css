@@ -2,6 +2,7 @@
 
 .site-header {
   padding: .1em;
+  background-color: #FFE895
 }
 
 .main-nav {
@@ -10,6 +11,9 @@
   clear: both;
 }
 
+.main-nav ul {
+  list-style-type: none;
+}
 .main-nav li {
   margin-right: .4em;
   font-size: 1.5em;
@@ -25,7 +29,7 @@
 }
 
 #filters select {
-
+  width: 100%;
 }
 
 .template {
