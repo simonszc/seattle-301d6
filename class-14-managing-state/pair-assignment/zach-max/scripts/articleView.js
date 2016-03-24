@@ -120,6 +120,7 @@
   };
 
   // COMMENT: What does this method do?  What is it's execution path?
+  // This method is called when specified data is ready to be appended to the DOM. This happens after our data has been filtered and sorted (through other methods like articlesController.loadByAuthor), and then called as a part of the final method in the callback chain for all routes(besides the homepage redirects), which is articlesController.index. The articleView.index method first shows all articles attached to the #articles element, and then hides all elements which are siblings of the #articles element. It then removes all articles which were previously loaded on the page, receives whatever instance of data has been assigned to the articles property on the ctx object, and runs a forEach method on that dataset(an array) which runs all articles currently in that array through our defined Handlebars template(#articles-template), and finally appends to the #articles element. In addition to appending articles, this method also calls articleView.populateFilters and articleView.handleFilters since we need to repopulate our filters, as well as start listening for change events related to the filters. The final piece of this method looks to see if more than 1 article has been loaded, and if it has, it truncates the text of each article.
   articleView.index = function(articles) {
     $('#articles').show().siblings().hide();
 
@@ -130,6 +131,7 @@
 
     articleView.populateFilters();
     // COMMENT: What does this method do?  What is it's execution path?
+    // This method has already been explained on line 42 in this file. It handles the change events of selections in our options filters.
     articleView.handleFilters();
 
     // DONE: Replace setTeasers with just the truncation logic, if needed:
