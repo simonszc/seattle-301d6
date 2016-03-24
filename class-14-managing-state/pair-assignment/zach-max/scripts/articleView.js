@@ -13,6 +13,7 @@
   };
 
   // COMMENT: What does this method do?  What is it's execution path?
+  //This method is called in articleView.index, which is called off of articleController.index. articleController.index calls articleView.index with an argument of ctx.articles (set in our loadAll methods). It uses the Article.AllAuthors() method (which returns an array of our author names using filter and map), and compiles a handlebar template to append them to the $('#author-filter') DOM element. It also runs an if statement to make sure it doesn't duplicate this appending. It also uses Article.allCategories to run a SQL query for all the distinct categories, and uses map to append them to the $('#category-filter') DOM element.
   articleView.populateFilters = function() {
     var options,
       template = Handlebars.compile($('#option-template').text());
@@ -38,6 +39,7 @@
   };
 
   // COMMENT: What does this method do?  What is it's execution path?
+  //Heh, I've already had to discuss this one a lot to explain the controllers. This is an event handler that listens ONCE for a change event on its select box, and sets "resource" as equal to the id of the DOM element the event fired off of (either author-filter or category-filter), and then removes the string "-filter" (so category-filter becomes category, author-filter becomes author), and then runs a page.js intercept using that tranformed id (resource) as part of the route, as well as the value of the item selected with all whitespace replaced with a '+'. So, it hands it off to a route with some essential values defined in context.
   articleView.handleFilters = function() {
     $('#filters').one('change', 'select', function() {
       resource = this.id.replace('-filter', '');
