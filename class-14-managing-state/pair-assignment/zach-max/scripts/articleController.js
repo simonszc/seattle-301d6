@@ -30,6 +30,7 @@
   };
 
   // COMMENT: What does this method do?  What is it's execution path?
+  // Similar to the two methods above, the loadByCategory method declares a categoryData function which we'll call once our specific data is found. To find our data, we run the Article.findWhere method to match the ((this).val()) value which comes from our click event on the category filter. The value selected there, (ex: card, or protocol), is matched against the value we pass in as the field parameter (in this case, 'category'), and runs a SQL query to match the category field with the specific filter value. Once matches/data is found, we then run the previously declared categoryData function which assigns the grabbed data to the articles property on the ctx object. Next() is then called to run the next method in the callback chain.
   articlesController.loadByCategory = function(ctx, next) {
     var categoryData = function(articlesInCategory) {
       ctx.articles = articlesInCategory;
@@ -40,6 +41,7 @@
   };
 
   // COMMENT: What does this method do?  What is it's execution path?
+  // This method is called when the homepage is the route. It initally declares an articleData function which can be (but doesn't have to be) used to assign all data in our Article.all array to the articles property on the ctx object. The interesting thing about this method is that if Article.all has already been populated, we don't need to run a getJSON request from our database to grab the data because we already have it. In that case, we can just assign the data in our Article.all array to the articles property on the ctx object, and then run Next() to fire the next method in the callback chain. If we don't have the data, we must first run the Article.fetchAll method to grab all articles from our hackerIpsum.json file and insert them into our SQL database. Once all articles are in our SQL database, we can then run the Article.loadAll method which instantiates that data as readable objects in our Article.all array. Once the data is there, we run the articleData function as a callback to assign the data to the articles property on the ctx object. Next() is called to fire the next method in the callback chain. 
   articlesController.loadAll = function(ctx, next) {
     var articleData = function(allArticles) {
       ctx.articles = Article.all;
